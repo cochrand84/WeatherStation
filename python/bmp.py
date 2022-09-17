@@ -21,8 +21,8 @@ temp = bmp.readTemperature()
 pressure = bmp.readPressure()
 time = ("%s" % i)
 
-print time
-print (pressure * 0.00029529980164712)
-print (temp * (9.0 / 5.0) +32)
+print (time)
+print((pressure * 0.00029529980164712))
+print((temp * (9.0 / 5.0) +32))
 
 db.query ("INSERT INTO inside_temp_data SET inside_dateandtime='%s',inside_temp='%s', inside_pressure='%s'" % ((time),(temp * (9.0 / 5.0) +32),(round(pressure * 0.00029529980164712,2))))
