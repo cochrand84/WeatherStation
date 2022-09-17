@@ -5,12 +5,12 @@ import time
 import board
 import adafruit_dht
 import datetime
-# import MySQLdb
-# import _mysql
+import mysql.connector
 import sys
 import numpy as np
-
-# db=_mysql.connect(host="localhost", user='logger', passwd ='Shotput322397', db='temperatures')
+from mysql.connector import errorcode
+cnx = mysql.connector.connect(host='localhost', user='logger', passwd ='logger', db='temps')
+cursor = cnx.cursor()
 
 dhtDevice = adafruit_dht.DHT22(board.D4)
 
@@ -68,9 +68,11 @@ while True:
 
 
 # if humidity is not None and temperature is not None:
-# db.query ("INSERT INTO outside_temp_data SET outside_dateandtime='%s',outside_temp='%s', outside_humidity='%s', outside_dewpoint='%s'" % (timeread,tempround,humidityround,dewpointround))
+        insertdata = ("INSERT INTO temp1_data SET temp1_dateandtime='%s',temp1_temp='%s', temp1_humidity='%s', temp1_dewpoint='%s', temp1_heatindex='%s'" % (timeread,tempround,humidityround,dewpointround,heatindexround))
+        cursor.execute(insertdata)
+        cnx.commit()
         print(
-            "Time: {}  Temp: {:.1f}F  Humidity: {}%  Dewpoint: {}F  HeatIndex: {}F".format(
+            "Time: {}  Temp: {}F  Humidity: {}%  Dewpoint: {}F  HeatIndex: {}F".format(
                 timeread, tempround, humidityround, dewpointround, heatindexround
             )
         )
@@ -81,6 +83,8 @@ while True:
         continue
     except Exception as error:
         dhtDevice.exit()
+        cursor.close()
+        cnx.close()
         raise error
 
     time.sleep(30)
