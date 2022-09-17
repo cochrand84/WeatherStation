@@ -70,10 +70,10 @@ Current Conditions
 
 temp1: 
 <div style="color:<?php echo $temp1_temp_color; ?>;">
-Temp: <?php echo $temp1_temp ?> &deg;F</div>
+Temp: <?php echo $temp1_temp ?>&deg;F</div>
 
 <div style="color:<?php echo $temp1_humidity_color; ?>;">
-Humidity: <?php echo $temp1_humidity ?> &#37;</div>
+Humidity: <?php echo $temp1_humidity ?>&#37;</div>
 
 </div>
 </center>
